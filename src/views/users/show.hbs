@@ -1,24 +1,49 @@
-<a href="/users"> Back to Users</a>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="mb-3">
+      <a href="/users" class="text-decoration-none">← Volver a Usuarios</a>
+    </div>
 
-<h1>{{user.firstName}} {{user.lastName}}</h1>
-<p>Email: {{user.email}}</p>
-<p>Membresía: {{user.membershipType}}</p>
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h1 class="h3 card-title text-primary mb-1">{{user.firstName}} {{user.lastName}}</h1>
+            <p class="text-muted mb-0">{{user.email}}</p>
+          </div>
+          <span class="badge bg-primary rounded-pill fs-6">{{user.membershipType}}</span>
+        </div>
 
-<a href="/users/{{user.id}}/edit"><button>Editar</button></a>
-<form action="/users/{{user.id}}/delete" method="POST" style="display:inline;">
-  <button type="submit">Eliminar</button>
-</form>
+        <div class="d-flex gap-2 mt-4">
+          <a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Editar perfil</a>
+          <form action="/users/{{user.id}}/delete" method="POST" class="m-0">
+            <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-<hr>
-
-<h2>Simulador de Citas</h2>
-<form action="/users/{{user.id}}" method="GET">
-  <div>
-    <label for="amount">Monto de la cita: $</label>
-    <input type="number" id="amount" name="amount" placeholder="Ingrese el monto" min="0" value="{{amount}}">
-    <button type="submit">Calcular descuento</button>
+    <div class="card shadow-sm border-0 bg-white">
+      <div class="card-body p-4">
+        <h2 class="h5 card-title text-secondary mb-3">Simulador de Citas</h2>
+        <form action="/users/{{user.id}}" method="GET" class="row g-3 align-items-end">
+          <div class="col-sm-8">
+            <label for="amount" class="form-label text-muted">Monto de la cita (CLP)</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light">$</span>
+              <input type="number" class="form-control" id="amount" name="amount" placeholder="Ej: 50000" min="0" value="{{amount}}">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" class="btn btn-success w-100 shadow-sm">Calcular descuento</button>
+          </div>
+        </form>
+        {{#if resultMessage}}
+          <div class="alert alert-success mt-4 mb-0 border-0 shadow-sm" role="alert">
+            {{resultMessage}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
   </div>
-</form>
-{{#if resultMessage}}
-  <p id="result" style="margin-top: 10px; font-weight: bold;">{{resultMessage}}</p>
-{{/if}}
+</div>

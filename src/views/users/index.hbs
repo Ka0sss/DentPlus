@@ -1,14 +1,39 @@
-<h1>Usuarios</h1>
-<a href="/users/create">Crear Usuario</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 text-primary m-0">Gestión de Usuarios</h1>
+  <a href="/users/create" class="btn btn-primary shadow-sm">+ Crear Usuario</a>
+</div>
+
 {{#if users}}
-  <ul>
-    {{#each users}}
-      <li>
-        <a href="/users/{{id}}">{{firstName}} {{lastName}}</a>
-        - {{membershipType}}
-      </li>
-    {{/each}}
-  </ul>
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4">Nombre Completo</th>
+              <th>Membresía</th>
+              <th class="text-end pe-4">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each users}}
+              <tr>
+                <td class="ps-4 fw-semibold text-secondary">{{firstName}} {{lastName}}</td>
+                <td>
+                  <span class="badge bg-info text-dark rounded-pill">{{membershipType}}</span>
+                </td>
+                <td class="text-end pe-4">
+                  <a href="/users/{{id}}" class="btn btn-sm btn-outline-primary">Ver detalle</a>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 {{else}}
-  <p>No hay usuarios disponibles.</p>
+  <div class="alert alert-warning text-center border-0 shadow-sm" role="alert">
+    No hay usuarios disponibles en este momento.
+  </div>
 {{/if}}
