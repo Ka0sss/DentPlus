@@ -1,6 +1,6 @@
 import app from './app'
 
-const DEFAULT_PORT = 3001
+const DEFAULT_PORT = 3000
 
 const PORT = process.env.PORT ?? DEFAULT_PORT
 
