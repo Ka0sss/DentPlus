@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
-import * as UsersModel from '../models/user.model'
+import * as UsersModel from '../models/user.model.js'
 
-export const index = (_req: Request, res: Response): void => {
-  const users = UsersModel.getAll()
+export const index = async (_req: Request, res: Response): Promise<void> => {
+  const users = await UsersModel.getAll()
   res.render('users/index', { users })
 }
 
-export const show = (req: Request, res: Response): void => {
+export const show = async (req: Request, res: Response): Promise<void> => {
   const id = parseInt(req.params.id as string, 10)
-  const user = UsersModel.getById(id)
+  const user = await UsersModel.getById(id)
 
   if (!user) {
     res.status(404).render('404', { message: 'User not found' })
@@ -39,15 +39,15 @@ export const createForm = (_req: Request, res: Response): void => {
   res.render('users/create')
 }
 
-export const createAction = (req: Request, res: Response): void => {
+export const createAction = async (req: Request, res: Response): Promise<void> => {
   const { firstName, lastName, email, membershipType } = req.body
-  const newUser = UsersModel.create({ firstName, lastName, email, membershipType })
+  const newUser = await UsersModel.create({ firstName, lastName, email, membershipType })
   res.redirect(`/users/${newUser.id}`)
 }
 
-export const editForm = (req: Request, res: Response): void => {
+export const editForm = async (req: Request, res: Response): Promise<void> => {
   const id = parseInt(req.params.id as string, 10)
-  const user = UsersModel.getById(id)
+  const user = await UsersModel.getById(id)
   if (!user) {
     res.status(404).render('404', { message: 'User not found' })
     return
@@ -56,23 +56,24 @@ export const editForm = (req: Request, res: Response): void => {
   res.render('users/edit', { user })
 }
 
-export const editAction = (req: Request, res: Response): void => {
+export const editAction = async (req: Request, res: Response): Promise<void> => {
   const id = parseInt(req.params.id as string, 10)
   const { firstName, lastName, email, membershipType } = req.body
-  const updated = UsersModel.update(id, { firstName, lastName, email, membershipType })
-  if (!updated) {
+
+  try {
+    await UsersModel.update(id, { firstName, lastName, email, membershipType })
+    res.redirect(`/users/${id}`)
+  } catch (error) {
     res.status(404).render('404', { message: 'User not found' })
-    return
   }
-  res.redirect(`/users/${id}`)
 }
 
-export const deleteAction = (req: Request, res: Response): void => {
+export const deleteAction = async (req: Request, res: Response): Promise<void> => {
   const id = parseInt(req.params.id as string, 10)
-  const deleted = UsersModel.remove(id)
-  if (!deleted) {
+  try {
+    await UsersModel.remove(id)
+    res.redirect('/users')
+  } catch (error) {
     res.status(404).render('404', { message: 'User not found' })
-    return
   }
-  res.redirect('/users')
 }

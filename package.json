@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@prisma/adapter-libsql": "^7.8.0",
+    "@libsql/client": "^0.14.0",
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-handlebars": "^9.0.1"
   },
@@ -24,6 +29,7 @@
     "eslint-config-love": "^153.0.0",
     "neostandard": "^0.13.0",
     "nodemon": "^3.1.14",
+    "prisma": "^7.8.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.2"
   }
