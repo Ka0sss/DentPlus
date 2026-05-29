@@ -1,22 +1,22 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="mb-3">
-      <a href="/users" class="text-decoration-none">← Volver a Usuarios</a>
+      <a href="/affiliates" class="text-decoration-none">← Volver a Afiliados</a>
     </div>
 
     <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="d-flex justify-content-between align-items-start mb-3">
           <div>
-            <h1 class="h3 card-title text-primary mb-1">{{user.firstName}} {{user.lastName}}</h1>
-            <p class="text-muted mb-0">{{user.email}}</p>
+            <h1 class="h3 card-title text-primary mb-1">{{affiliate.firstName}} {{affiliate.lastName}}</h1>
+            <p class="text-muted mb-0">{{affiliate.email}}</p>
           </div>
-          <span class="badge bg-primary rounded-pill fs-6">{{user.membershipType}}</span>
+          <span class="badge bg-primary rounded-pill fs-6">{{affiliate.membershipType}}</span>
         </div>
 
         <div class="d-flex gap-2 mt-4">
-          <a href="/users/{{user.id}}/edit" class="btn btn-outline-primary">Editar perfil</a>
-          <form action="/users/{{user.id}}/delete" method="POST" class="m-0">
+          <a href="/affiliates/{{affiliate.id}}/edit" class="btn btn-outline-primary">Editar perfil</a>
+          <form action="/affiliates/{{affiliate.id}}/delete" method="POST" class="m-0" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este afiliado?');">
             <button type="submit" class="btn btn-outline-danger">Eliminar</button>
           </form>
         </div>
@@ -26,7 +26,7 @@
     <div class="card shadow-sm border-0 bg-white">
       <div class="card-body p-4">
         <h2 class="h5 card-title text-secondary mb-3">Simulador de Citas</h2>
-        <form action="/users/{{user.id}}" method="GET" class="row g-3 align-items-end">
+        <form action="/affiliates/{{affiliate.id}}" method="GET" class="row g-3 align-items-end">
           <div class="col-sm-8">
             <label for="amount" class="form-label text-muted">Monto de la cita (CLP)</label>
             <div class="input-group">

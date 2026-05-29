@@ -20,9 +20,21 @@
           <li class="nav-item">
             <a class="nav-link" href="/">Inicio</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/users">Usuarios</a>
-          </li>
+          {{#if session.userId}}
+            <li class="nav-item">
+              <a class="nav-link" href="/affiliates">Afiliados</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white bg-danger rounded px-2 ms-2 fw-bold" href="/logout">Cerrar Sesión</a>
+            </li>
+          {{else}}
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/register">Registrarse</a>
+            </li>
+          {{/if}}
         </ul>
       </div>
     </div>

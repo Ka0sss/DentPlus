@@ -13,6 +13,6 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "types/session.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

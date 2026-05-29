@@ -1,14 +1,17 @@
 import path from 'path'
-import { fileURLToPath } from 'url'
 import express from 'express'
 import { engine } from 'express-handlebars'
-import userRouter from './routes/user.routes.js'
+import session from 'express-session'
+import loginRouter from './routes/login.routes.js'
+import affiliateRouter from './routes/affiliate.routes.js'
+import { logout } from './controllers/login.controller.js'
+import { requireAuth } from './middleware/requireAuth.js'
+
 /* Initialize Express app */
 const app = express()
-/* Definir ruta de views con "path" (__dirname es el directorio actual) */
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const viewsPath = path.join(__dirname, 'views')
+
+/* Definir ruta de views con "path" */
+const viewsPath = path.join(process.cwd(), 'src', 'views')
 
 app.engine('hbs', engine({
   extname: 'hbs',
@@ -20,10 +23,24 @@ app.set('views', viewsPath)
 
 app.use(express.urlencoded({ extended: true }))
 
+app.use(session({
+  secret: process.env.SESSION_SECRET ?? 'dev-secret',
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.use((req, _res, next) => {
+  _res.locals.session = req.session
+  next()
+})
+
 app.get('/', (_req, res) => {
   res.render('home')
 })
 
-app.use('/users', userRouter)
+app.use('/login', loginRouter)
+app.use('/logout', logout)
+app.use('/users', (_req, res) => res.redirect('/affiliates'))
+app.use('/affiliates', requireAuth, affiliateRouter)
 
 export default app

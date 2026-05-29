@@ -1,0 +1,42 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <h1 class="mb-4 text-center text-primary fw-bold">Iniciar Sesión</h1>
+
+  {{#if error}}
+    <div class="alert alert-danger text-center border-0 shadow-sm">{{error}}</div>
+  {{/if}}
+
+  <form action="/login" method="POST" class="card card-body p-4 shadow-sm border-0 bg-white" novalidate>
+    <div class="mb-3">
+      <label for="email" class="form-label text-muted">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control{{#if errors.email}} is-invalid{{/if}}"
+        value="{{values.email}}"
+        placeholder="ejemplo@correo.com"
+      >
+      {{#if errors.email}}
+        <div class="invalid-feedback">{{errors.email}}</div>
+      {{/if}}
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label text-muted">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control{{#if errors.password}} is-invalid{{/if}}"
+        placeholder="Tu contraseña"
+      >
+      {{#if errors.password}}
+        <div class="invalid-feedback">{{errors.password}}</div>
+      {{/if}}
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2 shadow-sm">Entrar</button>
+  </form>
+
+  <p class="mt-3 text-center text-muted">
+    ¿No tienes cuenta? <a href="/login/register" class="text-decoration-none fw-bold">Regístrate</a>
+  </p>
+</div>
