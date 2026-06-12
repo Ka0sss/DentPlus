@@ -55,19 +55,16 @@ Docker levantará una base de datos PostgreSQL aislada y configurará la aplicac
    ```
 
 3. **Levantar los servicios:**
-   Ejecuta Docker Compose para levantar el contenedor PostgreSQL y la aplicación en segundo plano:
+   Ejecuta Docker Compose para construir y levantar tanto la aplicación como PostgreSQL. La aplicación ejecutará automáticamente las migraciones y el mapeo de base de datos (`npx prisma db push`) internamente sin necesidad de intervención manual:
    ```bash
-   docker compose up -d
+   docker compose up --build -d
    ```
 
-4. **Correr las migraciones iniciales de Prisma:**
-   Una vez que el contenedor PostgreSQL esté en ejecución, empuja el esquema de la base de datos:
-   ```bash
-   npx prisma db push
+4. **Acceder a la aplicación:**
+   Una vez que los contenedores estén activos y saludables, abre tu navegador e ingresa a:
    ```
-
-5. **Acceder a la aplicación:**
-   Abre tu navegador y entra en: `http://localhost:3000`
+   http://localhost:3000
+   ```
 
 ---
 

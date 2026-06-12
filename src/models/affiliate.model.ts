@@ -38,7 +38,6 @@ export const remove = async (id: number, userId: number) => {
   })
 }
 
-// Esta es tu lógica de negocio para la simulación de citas, la mantenemos exactamente igual
 export const calculateDiscount = (membershipType: string, amount: number) => {
   let discountPercentage = 0
   if (membershipType.toLowerCase() === 'silver') discountPercentage = 0.05
